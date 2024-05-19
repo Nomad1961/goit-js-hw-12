@@ -2,24 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Pixabay Image Search</title>
+    
     <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-06b1bbdf.js">
+    <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-1cd1f9d9.css">
+    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-b15e409f.css">
   </head>
   <body>
-    ENOENT: no such file or directory, open '/home/runner/work/goit-js-hw-12/goit-js-hw-12/src/partials/header.html'
+    <span class="loader" style="display: none"></span>
+    <form id="search-form">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Введите поисковый запрос"
+      />
+      <button class="s-button" type="submit">Search</button>
+    </form>
+    <div id="gallery" class="simplelightbox"></div>
 
-    <section>
-      <h1>Example page title</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="/goit-js-hw-12/assets/javascript-8dac5379.svg" alt="" />
-    </section>
+    <div id="modal" class="modal">
+      <span class="close-button">&times;</span>
+      <img class="modal-content" id="modal-img" title="Image" />
+      <div id="caption"></div>
 
-    <!-- Loads the specified .html file -->
-    ENOENT: no such file or directory, open '/home/runner/work/goit-js-hw-12/goit-js-hw-12/src/partials/vite-promo.html'
+      <div class="gallery-nav">
+        <div class="gallery-nav-prev">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="gallery-nav-next">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+    </div>
 
+    <!-- 111111111111111111111 -->
+    <button id="load-more-btn" class="load-more-btn" style="display: none">
+      Load more
+    </button>
+    <!-- 111111111111111111111 -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    
+    
     
   </body>
 </html>
