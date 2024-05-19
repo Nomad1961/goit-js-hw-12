@@ -1,18 +1,7 @@
 // render-functions.js
-// export function renderImages(images) {
-//   const gallery = document.querySelector('.gallery');
-//   gallery.innerHTML = '';
-//   images.forEach(image => {
-//     const imgElement = document.createElement('img');
-//     imgElement.src = image.webformatURL;
-//     gallery.appendChild(imgElement);
-//   });
-// }
-// 1111111111111111111111111
 import iziToast from 'izitoast';
 
-export function displayImages(images) {
-  const gallery = document.getElementById('gallery');
+export function displayImages(images, gallery) {
   gallery.innerHTML = '';
 
   if (images.length === 0) {
@@ -22,7 +11,7 @@ export function displayImages(images) {
         'Sorry, there are no images matching your search query. Please try again!',
     });
   } else {
-    images.forEach(image => {
+    const imageElements = images.map(image => {
       const imgElement = document.createElement('img');
       imgElement.src = image.webformatURL;
       imgElement.alt = image.tags;
@@ -31,6 +20,7 @@ export function displayImages(images) {
       imgElement.dataset.views = image.views;
       imgElement.dataset.comments = image.comments;
       imgElement.dataset.downloads = image.downloads;
+
       imgElement.addEventListener('click', showModal);
       const card = document.createElement('div');
       card.className = 'card';
@@ -44,8 +34,10 @@ export function displayImages(images) {
         <p>Downloads: ${image.downloads}</p>
       `;
       card.appendChild(info);
-      gallery.appendChild(card);
+      return card;
     });
+
+    gallery.append(...imageElements);
   }
 }
 

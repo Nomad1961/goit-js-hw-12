@@ -1,35 +1,5 @@
 /* styles.css */
-/* .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-}
 
-button {
-  margin: auto;
-  padding: 10px 20px;
-  background-color: #d633f7;
-  color: rgb(10, 10, 10);
-  border: solid 2px;
-  border-color: black;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #24c40f;
-}
-form {
-  background-color: aquamarine;
-} */
-/* .s-button {
-  margin-left: 300px;
-  background-color: #616eb6;
-  color: bisque;
-}
-.s-button:hover {
-  background-color: #d633f7;
-} */
-/* 11111111111111111111111111111111111111111111111111111111111 */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -45,13 +15,6 @@ input {
   margin-right: 10px;
 }
 
-/* button {
-  padding: 5px 10px;
-  background-color: #0787ad;
-  color: white;
-  border: none;
-  cursor: pointer;
-} */
 button {
   margin: auto;
   padding: 10px 20px;
@@ -65,6 +28,22 @@ button {
 button:hover {
   background-color: #24c40f;
 }
+/* 111111111111111111111111111111 */
+.load-more-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}
+/* 111111111111111111111111111111 */
 #gallery {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
