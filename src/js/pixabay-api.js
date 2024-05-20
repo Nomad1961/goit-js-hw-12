@@ -1,4 +1,3 @@
-// pixabay-api.js
 const apiKey = '43839854-7e39202c3c35776610ceb4193';
 
 export async function fetchImages(searchTerm) {

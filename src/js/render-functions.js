@@ -1,4 +1,3 @@
-// render-functions.js
 import iziToast from 'izitoast';
 
 export function displayImages(images, gallery) {

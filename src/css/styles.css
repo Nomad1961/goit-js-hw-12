@@ -1,4 +1,4 @@
-/* styles.css */
+
 
 body {
   font-family: Arial, sans-serif;
@@ -28,7 +28,7 @@ button {
 button:hover {
   background-color: #24c40f;
 }
-/* 111111111111111111111111111111 */
+
 .load-more-btn {
   display: block;
   margin: 20px auto;
@@ -43,7 +43,7 @@ button:hover {
 .load-more-btn:hover {
   background-color: #0056b3;
 }
-/* 111111111111111111111111111111 */
+
 #gallery {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

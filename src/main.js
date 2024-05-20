@@ -1,4 +1,3 @@
-// main.js
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
@@ -70,6 +69,13 @@ loadMoreBtn.addEventListener('click', async () => {
     );
     const images = response.data.hits;
     displayImages(images, gallery);
+
+    const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
 
     const lightbox = new SimpleLightbox('.simplelightbox a', {
       elements: '.simplelightbox',
