@@ -1,8 +1,7 @@
+// render-functions.js 1
 import iziToast from 'izitoast';
 
 export function displayImages(images, gallery) {
-  gallery.innerHTML = '';
-
   if (images.length === 0) {
     iziToast.error({
       title: 'Error',

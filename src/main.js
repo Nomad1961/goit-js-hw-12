@@ -1,3 +1,4 @@
+// // // main.js 1
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
@@ -13,6 +14,7 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 
 let currentPage = 1;
 let searchTerm = '';
+let lightbox;
 
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
@@ -36,12 +38,11 @@ searchForm.addEventListener('submit', async e => {
       const images = response.data.hits;
       displayImages(images, gallery);
 
-      const lightbox = new SimpleLightbox('.simplelightbox a', {
+      lightbox = new SimpleLightbox('.simplelightbox a', {
         elements: '.simplelightbox',
         closeText: 'Закрыть',
         docClose: true,
       });
-      lightbox.refresh();
 
       if (response.data.totalHits > 15) {
         loadMoreBtn.style.display = 'block';
@@ -77,11 +78,6 @@ loadMoreBtn.addEventListener('click', async () => {
       behavior: 'smooth',
     });
 
-    const lightbox = new SimpleLightbox('.simplelightbox a', {
-      elements: '.simplelightbox',
-      closeText: 'Закрыть',
-      docClose: true,
-    });
     lightbox.refresh();
 
     if (currentPage * 15 >= response.data.totalHits) {
@@ -101,15 +97,7 @@ loadMoreBtn.addEventListener('click', async () => {
   }
 });
 
-const closeButton = document.querySelector('.close-button');
-const modal = document.getElementById('modal');
-
-closeButton.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-window.addEventListener('click', event => {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
+document.querySelector('.close-button').addEventListener('click', () => {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'none'; // Скрываем модальное окно
 });
