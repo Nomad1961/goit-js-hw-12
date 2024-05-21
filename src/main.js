@@ -1,4 +1,3 @@
-// // // main.js 1
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
@@ -99,5 +98,5 @@ loadMoreBtn.addEventListener('click', async () => {
 
 document.querySelector('.close-button').addEventListener('click', () => {
   const modal = document.getElementById('modal');
-  modal.style.display = 'none'; // Скрываем модальное окно
+  modal.style.display = 'none';
 });
