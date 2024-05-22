@@ -1,4 +1,3 @@
-
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
@@ -15,7 +14,7 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 let currentPage = 1;
 let searchTerm = '';
 let lightbox;
-let images = []; // Массив для хранения URL увеличенных изображений
+let images = [];
 let currentIndex = 0;
 
 searchForm.addEventListener('submit', async e => {
@@ -40,7 +39,7 @@ searchForm.addEventListener('submit', async e => {
       const response = await axios.get(
         `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
       );
-      images = response.data.hits.map(image => image.largeImageURL); // Заполняем массив URL
+      images = response.data.hits.map(image => image.largeImageURL);
       displayImages(response.data.hits, gallery);
 
       lightbox = new SimpleLightbox('.simplelightbox a', {
@@ -76,7 +75,7 @@ loadMoreBtn.addEventListener('click', async () => {
     images = [
       ...images,
       ...response.data.hits.map(image => image.largeImageURL),
-    ]; // Дополняем массив URL
+    ];
     displayImages(response.data.hits, gallery);
 
     const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
