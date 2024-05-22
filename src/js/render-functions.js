@@ -1,5 +1,3 @@
-
-// render-functions.js
 import iziToast from 'izitoast';
 
 export function displayImages(images, gallery) {
@@ -20,7 +18,7 @@ export function displayImages(images, gallery) {
       imgElement.dataset.comments = image.comments;
       imgElement.dataset.downloads = image.downloads;
 
-      imgElement.classList.add('simplelightbox'); // Добавляем класс для simplelightbox
+      imgElement.classList.add('simplelightbox');
 
       const card = document.createElement('div');
       card.className = 'card';

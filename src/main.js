@@ -1,6 +1,4 @@
 
-// main.js
-
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
@@ -17,11 +15,14 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 let currentPage = 1;
 let searchTerm = '';
 let lightbox;
+let images = []; // Массив для хранения URL увеличенных изображений
+let currentIndex = 0;
 
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
   searchTerm = searchInput.value.trim();
   currentPage = 1;
+  currentIndex = 0;
 
   loader.style.display = 'block';
   loadMoreBtn.style.display = 'none';
@@ -39,8 +40,8 @@ searchForm.addEventListener('submit', async e => {
       const response = await axios.get(
         `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
       );
-      const images = response.data.hits;
-      displayImages(images, gallery);
+      images = response.data.hits.map(image => image.largeImageURL); // Заполняем массив URL
+      displayImages(response.data.hits, gallery);
 
       lightbox = new SimpleLightbox('.simplelightbox a', {
         elements: '.simplelightbox',
@@ -72,8 +73,11 @@ loadMoreBtn.addEventListener('click', async () => {
     const response = await axios.get(
       `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
     );
-    const images = response.data.hits;
-    displayImages(images, gallery);
+    images = [
+      ...images,
+      ...response.data.hits.map(image => image.largeImageURL),
+    ]; // Дополняем массив URL
+    displayImages(response.data.hits, gallery);
 
     const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
 
@@ -104,4 +108,44 @@ loadMoreBtn.addEventListener('click', async () => {
 document.querySelector('.close-button').addEventListener('click', () => {
   const modal = document.getElementById('modal');
   modal.style.display = 'none';
+  window.removeEventListener('keydown', handleKeyDown);
+});
+
+gallery.addEventListener('click', event => {
+  event.preventDefault();
+
+  if (event.target.nodeName === 'IMG') {
+    const largeImageURL = event.target.dataset.largeImage;
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    modalImg.src = largeImageURL;
+    modal.style.display = 'block';
+
+    currentIndex = images.indexOf(largeImageURL);
+
+    window.addEventListener('keydown', handleKeyDown);
+  }
+});
+
+function handleKeyDown(event) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+
+  if (modal.style.display === 'block') {
+    if (event.key === 'ArrowLeft') {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+      modalImg.src = images[currentIndex];
+    }
+
+    if (event.key === 'ArrowRight') {
+      currentIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+      modalImg.src = images[currentIndex];
+    }
+  }
+}
+
+document.querySelector('.close-button').addEventListener('click', () => {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'none';
+  window.removeEventListener('keydown', handleKeyDown);
 });
