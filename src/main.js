@@ -46,10 +46,10 @@ searchForm.addEventListener('submit', async e => {
         `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
       );
       images = response.data.hits.map(image => image.largeImageURL);
+
       displayImages(response.data.hits, gallery);
 
       lightbox.refresh();
-
 
       if (response.data.totalHits > 15) {
         loadMoreBtn.style.display = 'block';

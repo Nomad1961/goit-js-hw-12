@@ -41,7 +41,6 @@ export function displayImages(images, gallery) {
       card.appendChild(info);
       return card;
     });
-    // ------------------------------------
 
     gallery.append(...imageElements);
   }
