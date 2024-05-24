@@ -1,5 +1,3 @@
-import iziToast from 'izitoast';
-
 export function displayImages(images, gallery) {
   if (images.length === 0) {
     iziToast.error({
@@ -12,6 +10,12 @@ export function displayImages(images, gallery) {
       const imgElement = document.createElement('img');
       imgElement.src = image.webformatURL;
       imgElement.alt = image.tags;
+
+      const aElement = document.createElement('a');
+      aElement.href = image.largeImageURL;
+      aElement.className = 'simplelightbox';
+      aElement.appendChild(imgElement);
+
       imgElement.dataset.largeImage = image.largeImageURL;
       imgElement.dataset.likes = image.likes;
       imgElement.dataset.views = image.views;
@@ -22,18 +26,22 @@ export function displayImages(images, gallery) {
 
       const card = document.createElement('div');
       card.className = 'card';
+
+      card.appendChild(aElement);
+
       card.appendChild(imgElement);
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = `
-        <p>Likes: ${image.likes}</p>
-        <p>Views: ${image.views}</p>
-        <p>Comments: ${image.comments}</p>
-        <p>Downloads: ${image.downloads}</p>
-      `;
+          <p>Likes: ${image.likes}</p>
+          <p>Views: ${image.views}</p>
+          <p>Comments: ${image.comments}</p>
+          <p>Downloads: ${image.downloads}</p>
+        `;
       card.appendChild(info);
       return card;
     });
+    // ------------------------------------
 
     gallery.append(...imageElements);
   }

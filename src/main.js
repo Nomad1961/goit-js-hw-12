@@ -1,5 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import { fetchImages } from './js/pixabay-api.js';
 import axios from 'axios';
 import { displayImages } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
@@ -13,7 +14,12 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 
 let currentPage = 1;
 let searchTerm = '';
-let lightbox;
+
+let lightbox = new SimpleLightbox('.simplelightbox a', {
+  elements: '.simplelightbox',
+  closeText: 'Закрыть',
+  docClose: true,
+});
 let images = [];
 let currentIndex = 0;
 
@@ -42,11 +48,8 @@ searchForm.addEventListener('submit', async e => {
       images = response.data.hits.map(image => image.largeImageURL);
       displayImages(response.data.hits, gallery);
 
-      lightbox = new SimpleLightbox('.simplelightbox a', {
-        elements: '.simplelightbox',
-        closeText: 'Закрыть',
-        docClose: true,
-      });
+      lightbox.refresh();
+
 
       if (response.data.totalHits > 15) {
         loadMoreBtn.style.display = 'block';
