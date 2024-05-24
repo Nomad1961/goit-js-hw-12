@@ -13,13 +13,9 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 
 let currentPage = 1;
 let searchTerm = '';
+let lightbox;
 let images = [];
 let currentIndex = 0;
-let lightbox = new SimpleLightbox('.simplelightbox a', {
-  elements: '.simplelightbox',
-  closeText: 'Закрыть',
-  docClose: true,
-});
 
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
@@ -46,7 +42,11 @@ searchForm.addEventListener('submit', async e => {
       images = response.data.hits.map(image => image.largeImageURL);
       displayImages(response.data.hits, gallery);
 
-      lightbox.refresh();
+      lightbox = new SimpleLightbox('.simplelightbox a', {
+        elements: '.simplelightbox',
+        closeText: 'Закрыть',
+        docClose: true,
+      });
 
       if (response.data.totalHits > 15) {
         loadMoreBtn.style.display = 'block';
@@ -78,14 +78,14 @@ loadMoreBtn.addEventListener('click', async () => {
     ];
     displayImages(response.data.hits, gallery);
 
-    lightbox.refresh();
-
     const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
 
     window.scrollBy({
       top: cardHeight * 2,
       behavior: 'smooth',
     });
+
+    lightbox.refresh();
 
     if (currentPage * 15 >= response.data.totalHits) {
       loadMoreBtn.style.display = 'none';
@@ -104,6 +104,12 @@ loadMoreBtn.addEventListener('click', async () => {
   }
 });
 
+document.querySelector('.close-button').addEventListener('click', () => {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'none';
+  window.removeEventListener('keydown', handleKeyDown);
+});
+
 gallery.addEventListener('click', event => {
   event.preventDefault();
 
@@ -119,6 +125,23 @@ gallery.addEventListener('click', event => {
     window.addEventListener('keydown', handleKeyDown);
   }
 });
+
+function handleKeyDown(event) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+
+  if (modal.style.display === 'block') {
+    if (event.key === 'ArrowLeft') {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+      modalImg.src = images[currentIndex];
+    }
+
+    if (event.key === 'ArrowRight') {
+      currentIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+      modalImg.src = images[currentIndex];
+    }
+  }
+}
 
 document.querySelector('.close-button').addEventListener('click', () => {
   const modal = document.getElementById('modal');

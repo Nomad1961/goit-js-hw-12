@@ -1,4 +1,4 @@
-// import iziToast from 'izitoast';
+import iziToast from 'izitoast';
 
 export function displayImages(images, gallery) {
   if (images.length === 0) {
