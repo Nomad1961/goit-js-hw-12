@@ -7,6 +7,8 @@ export function displayImages(images, gallery) {
     });
   } else {
     const imageElements = images.map(image => {
+      const card = document.createElement('div');
+      card.className = 'card';
       const imgElement = document.createElement('img');
       imgElement.src = image.webformatURL;
       imgElement.alt = image.tags;
@@ -24,12 +26,7 @@ export function displayImages(images, gallery) {
 
       imgElement.classList.add('simplelightbox');
 
-      const card = document.createElement('div');
-      card.className = 'card';
-
       card.appendChild(aElement);
-
-      card.appendChild(imgElement);
       const info = document.createElement('div');
       info.className = 'info';
       info.innerHTML = `
