@@ -6,11 +6,11 @@ import { displayImages } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search-input');
+const searchForm = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-input');
 const loader = document.querySelector('.loader');
-const gallery = document.getElementById('gallery');
-const loadMoreBtn = document.getElementById('load-more-btn');
+const gallery = document.querySelector('#gallery');
+const loadMoreBtn = document.querySelector('#load-more-btn');
 
 let currentPage = 1;
 let searchTerm = '';
