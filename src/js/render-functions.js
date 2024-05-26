@@ -10,7 +10,7 @@ export function displayImages(images, gallery) {
       const card = document.createElement('div');
       card.className = 'card';
       const imgElement = document.createElement('img');
-      imgElement.src = image.webformatURL;
+      imgElement.src = image.largeImageURL;
       imgElement.alt = image.tags;
 
       const aElement = document.createElement('a');

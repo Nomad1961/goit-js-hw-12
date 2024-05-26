@@ -1,10 +1,9 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { fetchImages } from './js/pixabay-api.js';
-import axios from 'axios';
-import { displayImages } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { displayImages } from './js/render-functions.js';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
@@ -42,16 +41,14 @@ searchForm.addEventListener('submit', async e => {
     loader.style.display = 'none';
   } else {
     try {
-      const response = await axios.get(
-        `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
-      );
-      images = response.data.hits.map(image => image.largeImageURL);
+      const response = await fetchImages(searchTerm, currentPage);
+      images = response.map(image => image.largeImageURL);
 
-      displayImages(response.data.hits, gallery);
+      displayImages(response, gallery);
 
       lightbox.refresh();
 
-      if (response.data.totalHits > 15) {
+      if (response.length > 15) {
         loadMoreBtn.style.display = 'block';
       }
     } catch (error) {
@@ -63,46 +60,5 @@ searchForm.addEventListener('submit', async e => {
       loader.style.display = 'none';
       searchInput.value = '';
     }
-  }
-});
-
-loadMoreBtn.addEventListener('click', async () => {
-  currentPage++;
-
-  loader.style.display = 'block';
-
-  try {
-    const response = await axios.get(
-      `https://pixabay.com/api/?key=43839854-7e39202c3c35776610ceb4193&q=${searchTerm}&image_type=photo&orientation=horizontal&safesearch=true&per_page=15&page=${currentPage}`
-    );
-    images = [
-      ...images,
-      ...response.data.hits.map(image => image.largeImageURL),
-    ];
-    displayImages(response.data.hits, gallery);
-
-    const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
-
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
-
-    lightbox.refresh();
-
-    if (currentPage * 15 >= response.data.totalHits) {
-      loadMoreBtn.style.display = 'none';
-      iziToast.info({
-        title: 'Info',
-        message: "We're sorry, but you've reached the end of search results.",
-      });
-    }
-  } catch (error) {
-    iziToast.error({
-      title: 'Error',
-      message: 'An error occurred while fetching images. Please try again.',
-    });
-  } finally {
-    loader.style.display = 'none';
   }
 });
